@@ -1,0 +1,20 @@
+{
+  "name": "email-script",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "imap-simple": "^5.1.0",
+    "imapflow": "^1.0.195",
+    "mailparser": "^3.7.4",
+    "mime-types": "^3.0.1",
+    "nodemailer": "^7.0.6"
+  }
+}
