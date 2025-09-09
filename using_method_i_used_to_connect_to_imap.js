@@ -129,9 +129,21 @@ getEmails(imap, process.env.IMAP_USER).then(
   //  imap.
   if(emailCreationDate < oneYearAgo.getTime())  {
     // archive email here IF its not flagged 
+    imap.move(email.seq, 'INBOX.Archive', (err) => {
+      if (err) {
+          console.error('Error moving emails:', err);
+      } else {
+          console.log('Emails moved successfully to Archive!');
+      }
+  })
   } else if (emailCreationDate < sixMonthsAgo.getTime()) {
  // mark email as read here
+ imap.addFlags(email.seq, '\\Seen', (err) => {
+  if (err) console.error(`Error marking read #`, err);
+  else console.log(`Marked email # as read`);
+});
   }
+
 // FIXME
   const emailsTsWasSentTo = [] || email.to
   if(emailsTsWasSentTo.includes("jobs@saahild.com")) {
@@ -150,12 +162,10 @@ getEmails(imap, process.env.IMAP_USER).then(
       if (err) {
           console.error('Error moving emails:', err);
       } else {
-          console.log('Emails moved successfully to Jobs!');
+          console.log('Emails moved successfully to Edu!');
       }
   })
   }
-
-  
   }
 });
 
