@@ -3,7 +3,7 @@ const Imap = require("imap");
 // var debug = require('debug')('main:imap')
 const debug = (msg) => console.debug(`[main:imap] -> ${msg}`);
 //  const simpleParser = require('simpleParser')
-const { simpleParser } = require("mailparser");
+const { simpleParser, ParsedMail } = require("mailparser");
 const getEmails = (imap, email) => {
   return new Promise((res, rej) => {
     try {
@@ -11,10 +11,10 @@ const getEmails = (imap, email) => {
 
       imap.once("ready", () => {
         imap.openBox("INBOX", false, () => {
-          imap.search(
-            [["TO", "neon+sortingtest@saahild.com"]],
-            (err, results) => {
-              // imap.search(['UNSEEN', ['SINCE', 0]], (err, results) => {
+          // imap.search(
+            // [["TO", "neon+sortingtest@saahild.com"]],
+            // (err, results) => {
+              imap.search(['UNSEEN', ['SINCE', 0]], (err, results) => {
               // unread ^
               if (err) {
                 console.error("#err5");
@@ -102,30 +102,61 @@ const imap = new Imap({
   // debug: debug
 });
 
-getEmails(imap, process.env.IMAP_USER).then((d) => {
+getEmails(imap, process.env.IMAP_USER).then(
+  /**
+   * 
+   * @param {ParsedEmail[]} d 
+   */
+  (d) => {
   // require('fs').writeFileSync('emails.json', JSON.stringify(d), 'utf8')
   // console.log(d)
   // oke we have emails wat now! wellllllll
   console.log(d);
-  // log all current inbox's
-  imap.getBoxes((err, boxes) => {
-    if (err) {
-      console.error("Error listing boxes:", err);
-      return;
-    }
-    console.log("Current inbox boxes:", boxes);
-  });
+
+
   // move email to the folder INBOX.Testing
   // console.log(d[0].seq)
 
-  // imap.move(d.map(e => e.seq), 'INBOX.Testing', (err) => {
-  //     if (err) {
-  //         console.error('Error moving emails:', err);
-  //     } else {
-  //         console.log('Emails moved successfully!');
-  //     }
-  //     // imap.end(); // Close the connection after moving
-  // })
+  // loop thru each email 
+  const sixMonthsAgo = new Date();
+  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+  for(const email of d) {
+  if(!email.date) continue;
+   const emailCreationDate = email.date.getTime();
+  //  imap.
+  if(emailCreationDate < oneYearAgo.getTime())  {
+    // archive email here IF its not flagged 
+  } else if (emailCreationDate < sixMonthsAgo.getTime()) {
+ // mark email as read here
+  }
+// FIXME
+  const emailsTsWasSentTo = [] || email.to
+  if(emailsTsWasSentTo.includes("jobs@saahild.com")) {
+    // migrate to the correct folder  
+    imap.move(d.map(e => e.seq), 'INBOX.jobs', (err) => {
+      if (err) {
+          console.error('Error moving emails:', err);
+      } else {
+          console.log('Emails moved successfully to Jobs!');
+      }
+  })
+  }
+  if(emailsTsWasSentTo.includes("edu@saahild.com")) {
+    // migrate to the correct folder  
+    imap.move(d.map(e => e.seq), 'INBOX.Edu', (err) => {
+      if (err) {
+          console.error('Error moving emails:', err);
+      } else {
+          console.log('Emails moved successfully to Jobs!');
+      }
+  })
+  }
+
+  
+  }
 });
 
 /**
@@ -135,6 +166,8 @@ getEmails(imap, process.env.IMAP_USER).then((d) => {
  * if older then one year archive the email UNLESS its marked important
  * if email sent to jobs@saahild.com -> Sort to jobs folder
  * if email sent to edu@saahild.com -> Sort to edu folder
+ * if email is FROM a @github.com email or is TO git@saahild.com -> sort to git folder
  * ...etc
  * please also take a copy of todays emails and make an ai summary for zeon!
  */
+
