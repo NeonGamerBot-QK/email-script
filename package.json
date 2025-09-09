@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^17.2.1",
+    "imap": "^0.8.19",
     "imap-simple": "^5.1.0",
     "imapflow": "^1.0.195",
     "mailparser": "^3.7.4",

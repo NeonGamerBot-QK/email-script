@@ -11,6 +11,9 @@ importers:
       dotenv:
         specifier: ^17.2.1
         version: 17.2.1
+      imap:
+        specifier: ^0.8.19
+        version: 0.8.19
       imap-simple:
         specifier: ^5.1.0
         version: 5.1.0

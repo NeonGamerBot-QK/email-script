@@ -1,3 +1,5 @@
 node_modules
 .env
 *.txt
+unread_emails.json
+emails.json
