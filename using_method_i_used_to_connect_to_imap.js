@@ -78,7 +78,7 @@ const getEmails = (imap, email) => {
         rej(err.message);
       });
 
-      imap.once("end", async () => { });
+      imap.once("end", async () => {});
 
       imap.connect();
     } catch (ex) {
