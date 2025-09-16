@@ -5,7 +5,7 @@
 ## ⚠️ Work in Progress
 
 This is a **Linux executable** script (tested on Linux only).  
-You can also just clone the repo, install dependencies, and run it directly with Node.js.  
+You can also just clone the repo, install dependencies, and run it directly with Node.js.
 
 > **Note:** If you’re using Gmail, you **must** use [App Passwords](https://support.google.com/accounts/answer/185833?hl=en).  
 > This has not been tested extensively with Gmail.
@@ -13,19 +13,21 @@ You can also just clone the repo, install dependencies, and run it directly with
 ---
 
 ## 🚀 Features
+
 - Fetches all **unread emails** via IMAP.
 - Parses messages with [`mailparser`](https://nodemailer.com/extras/mailparser/).
 - **Automatic management rules**:
-  - 📆 Emails older than **6 months** → marked as read.  
-  - 📦 Emails older than **1 year** → archived (unless flagged).  
-  - 🛠 Emails sent to `jobs@saahild.com` → moved to `INBOX.jobs`.  
-  - 🎓 Emails sent to `edu@saahild.com` → moved to `INBOX.Edu`.  
-  - 🐙 Emails **from `@github.com`** or sent **to `git@saahild.com`** → moved to `INBOX.git`.  
-- Optionally take **today’s emails** and generate an AI summary for quick review.  
+  - 📆 Emails older than **6 months** → marked as read.
+  - 📦 Emails older than **1 year** → archived (unless flagged).
+  - 🛠 Emails sent to `jobs@saahild.com` → moved to `INBOX.jobs`.
+  - 🎓 Emails sent to `edu@saahild.com` → moved to `INBOX.Edu`.
+  - 🐙 Emails **from `@github.com`** or sent **to `git@saahild.com`** → moved to `INBOX.git`.
+- Optionally take **today’s emails** and generate an AI summary for quick review.
 
 ---
 
 ## 📂 Project Structure
+
 ```
 
 .
@@ -35,17 +37,18 @@ You can also just clone the repo, install dependencies, and run it directly with
 ├── .env.example      # Example environment config
 └── screenshot.png    # Banner for this project
 
-````
+```
 
 ---
 
 ## ⚙️ Setup
 
 ### 1. Clone the repo
+
 ```bash
 git clone https://github.com/NeonGamerBot-QK/email-script.git
 cd email-script
-````
+```
 
 ### 2. Install dependencies
 
@@ -105,10 +108,10 @@ if (emailsTsWasSentTo.includes("finance@saahild.com")) {
 
 ## ⚡️ Roadmap
 
-* [ ] Add Gmail-specific config presets.
-* [ ] Support multiple accounts at once.
-* [ ] CLI flags for dry-run, debug, and rule toggles.
-* [ ] AI summaries of daily emails.
+- [ ] Add Gmail-specific config presets.
+- [ ] Support multiple accounts at once.
+- [ ] CLI flags for dry-run, debug, and rule toggles.
+- [ ] AI summaries of daily emails.
 
 ---
 
